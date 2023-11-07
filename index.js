@@ -1,3 +1,4 @@
 const convertToPng = require('./pdftopng');
+const path = require('path');
 
-// converter(path.join(__dirname, './pdf_files/1.pdf'), 7);
+convertToPng(path.join(__dirname, './pdf_files/АТТЕСТАТ ФАРМЛНИК.pdf'), 2);

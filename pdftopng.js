@@ -2,10 +2,7 @@ const fs = require('fs');
 const { pdfToPng } = require('pdf-to-png-converter');
 
 convertPdfToImg = async (buffer, pages) => {
-  let pagesArr = [];
-  for (let i = 1; i <= pages; i++) {
-    pagesArr.push(i);
-  }
+  let pagesArr = Array(pages).fill().map((e, i) => i + 1);
 
   const pngPage = await pdfToPng(buffer, {
     disableFontFace: true,
@@ -17,16 +14,20 @@ convertPdfToImg = async (buffer, pages) => {
   return pngPage;
 }
 
+function makePath(pathToFile, i) {
+  return pathToFile.replace(__dirname, '')
+    .replace('.pdf', `-${i + 1}.png`)
+    .replace(`\\pdf_files\\`)
+    .replace('/pdf_files/', '')
+    .replace('undefined', '');
+}
+
 const convertToPng = async (pathToFile, pages) => {
   if (fs.existsSync(pathToFile)) {
     const pdf = fs.readFileSync(pathToFile);
     const pngs = await convertPdfToImg(pdf, pages);
     pngs.forEach((png, i) => {
-      fs.writeFileSync(`./png_files/${pathToFile.replace(__dirname, '')
-        .replace('.pdf', `-${i + 1}.png`)
-        .replace(`\\pdf_files\\`)
-        .replace('undefined', '')}`,
-        png.content);
+      fs.writeFileSync(__dirname + `/png_files/` + makePath(pathToFile, i), png.content);
     });
   }
 }
