@@ -1,5 +1,5 @@
 {
-  "name": "pdftopng",
+  "name": "1",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "pdf-to-png-converter": "^3.1.0"
+  "dependencies": {
+    "pdf-to-png-converter": "^3.2.0"
   }
 }
